@@ -1,0 +1,29 @@
+{
+	"apps":[{
+		"name":"change",
+		"script":"server.js",
+		"instances":2,
+		"env" : {
+			"COMMON_VARIABLE":"true"
+		},
+		"env_production":{
+			"NODE_ENV":"production"
+		}
+	}],
+	"deploy":{
+		"production": {
+			"user": "www",
+			"host": ["103.40.247.27"],
+			"ref": "origin/master",
+			"repo": "git@github.com:XUSAMXU/change",
+			"path": "/www/wwwroot/nice.xxson.cn/production",
+			"ssh_option": "StrictHostKeyChecking=no",
+			//"post-deploy":"npm install",
+			"pre-deploy-local": "echo 'Deploy Done!'",
+			"env": {
+				"Node_ENV"： "production"
+			}
+			
+		}
+	}
+}
