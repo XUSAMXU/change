@@ -1,29 +1,40 @@
 {
-	"apps":[{
-		"name":"change",
-		"script":"server.js",
-		"instances":2,
-		"env" : {
-			"COMMON_VARIABLE":"true"
-		},
-		"env_production":{
-			"NODE_ENV":"production"
-		}
-	}],
-	"deploy":{
-		"production": {
-			"user": "www",
-			"host": ["103.40.247.27"],
-			"ref": "origin/master",
-			"repo": "git@github.com:XUSAMXU/change",
-			"path": "/www/wwwroot/nice.xxson.cn/production",
-			"ssh_option": "StrictHostKeyChecking=no",
-			//"post-deploy":"npm install",
-			"pre-deploy-local": "echo 'Deploy Done!'",
-			"env": {
-				"Node_ENV"ï¼š "production"
-			}
-			
-		}
-	}
+ "apps": [
+  {
+   "name": "change",
+   "script": "server.js", //Æô¶¯½Å±¾
+   "env": {
+    "COMMON_VARIABLE": "true"
+   },
+   // ²âÊÔ·þÎñÆ÷
+   "env_development": {
+    "NODE_ENV": "development",
+    "PORT": 8080
+   },
+   // Éú²ú»·¾³
+   "env_production": {
+    "NODE_ENV": "production",
+    "PORT": 8080
+   }
+  }
+ ],
+ "deploy": {
+  // Éú²ú»·¾³
+  "production": {
+   "user": "root", //Nginx·þÎñÆ÷ÉÏµÄusername
+   "host": ["103.40.247.27"], // ·þÎñÆ÷µØÖ·
+   "port": "22",
+   "ref": "origin/master", //´ÓÖ¸¶¨µÄ·ÖÖ§À­È¡´úÂë
+   "repo": "git@github.com:XUSAMXU/change.git", // Ê¹ÓÃ
+   "path": "/root/change/production", //·¢²¼µ½·þÎñÆ÷Ö¸¶¨µÄÄ¿Â¼ÏÂ
+   "ssh_options": "StrictHostKeyChecking=no",
+   //¹¹½¨ÔÚ·¢²¼
+   "post-deploy":
+    "npm install && pm2 startOrRestart ecosystem.json --env production",
+   "env": {
+    "NODE_ENV": "production"
+   }
+  },
+ 
+ }
 }
